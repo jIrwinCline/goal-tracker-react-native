@@ -8,18 +8,29 @@ const GoalInput = props => {
     setEnteredGoal(enteredText);
   }
 
+  const addGoalHandler = () => {
+      props.onAddGoal(enteredGoal);
+      setEnteredGoal('')
+  }
 
   return (
       <Modal visible={props.visible}>
-      <View style={styles.inputContainer}>
-        <TextInput 
-          placeholder='Course Goals' 
-          style={styles.input}
-          onChangeText={goalInputHandler}
-          value={enteredGoal}
-        />
-        <Button title='ADD' onPress={props.onAddGoal.bind(this, enteredGoal)} />
-      </View>
+        <View style={styles.inputContainer}>
+            <TextInput 
+            placeholder='Course Goals' 
+            style={styles.input}
+            onChangeText={goalInputHandler}
+            value={enteredGoal}
+            />
+            <View style={styles.ButtonLayout}>
+                <View style={styles.button}>
+                    <Button title='CANCEL' color='red' onPress={props.onCancel} />
+                </View>
+                <View style={styles.button}>
+                    <Button title='ADD' onPress={addGoalHandler} />
+                </View>
+            </View>
+        </View>
       </Modal>
   );
 }
@@ -31,11 +42,20 @@ const styles = StyleSheet.create({
     borderColor: 'black', 
     width: '80%', 
     borderWidth: 1, 
-    padding: 10 
+    padding: 10,
+    marginBottom: 10,
   },
   inputContainer: {
-    flexDirection: 'row', 
-    justifyContent: 'space-between',  
+    flex: 1,
+    justifyContent: 'center',  
     alignItems: 'center'
   },
+  ButtonLayout: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '60%',
+  },
+  button: {
+      width: '40%',
+  }
 });
